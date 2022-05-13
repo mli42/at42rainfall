@@ -1,0 +1,11 @@
+
+https://www.exploit-db.com/papers/23985
+
+dans printf eip est à 0xbffff50c
+
+system est à 0xb7e6b060
+
+/bin/sh est à 0xb7f8cc58
+
+utilise le %n pour ecrire à l'adresse d'eip et la suivante systeme et son argument
+
