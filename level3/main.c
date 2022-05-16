@@ -6,12 +6,17 @@
 void v() {
 
   char str[200] = {""};
+  char *coucou = "";
   fgets(str);
-  printf();
+  printf(str);
+  if ((int)coucou == 64)
+    system("/bin/sh");
+  else
+    exit();
 
 }
 
 
 int main() {
-
+  v();
 }
