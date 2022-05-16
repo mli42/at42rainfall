@@ -2,7 +2,7 @@
 https://www.exploit-db.com/papers/23985
 
 
-utilise le %n pour ecrire à l'adresse d'eip et la suivante systeme et son argument
+utilise le %n pour ecrire à l'adresse de la variable et set la valeur à 64
 
 dans v()
 si 0x804988c == 64 alors on a un shell

