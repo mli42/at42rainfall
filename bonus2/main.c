@@ -5,6 +5,7 @@ void greetuser() {
 }
 
 int main(int argc, char **argv) {
+  char language = 0;
 
   if (argc == 3)
     return; 
@@ -13,6 +14,15 @@ int main(int argc, char **argv) {
 
   if  (getenv("LANG") == 0)
     return ;
-  memcpm({LANG}, "fi",2);
+  if (memcpm({LANG}, "fi",2) == 1)
+  {
+    language = 1;
+    return;
+  }
+  if (memcpm({LANG}, "nl",2) == 0)
+    language = 2;
+  else
+    return;
+  greetuser();
 
 }
