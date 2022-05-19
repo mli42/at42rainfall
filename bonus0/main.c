@@ -1,35 +1,35 @@
+#include <string.h>
+#include <unistd.h>
+#include <stdio.h>
 
-int p(char *str, char *sepa) {
+void p(char *str, char *sepa) {
 
-  char *to_read = "";
+  char to_read[0x1008] = "";
   puts(sepa);
-  read(stdin, to_read, 0x1000);
-  index = strchr('\n', to_read);
-  to_read[index] = '\0';
+  read(STDIN_FILENO, to_read, 0x1000);
+  *strchr(to_read, '\n') = 0;
   strncpy(str, to_read, 20);
 }
+
 int pp(char *str) {
 
   char *sepa = " - \n";
-  char *new= "";
-  char *blank= " ";
-  char *first;
-  char *second;
+  char first[20] = "";
+  char second[20] = "";
 
   p(first, sepa);
   p(second, sepa);
 
-  strcpy(first, second);
-  strlen(first);
+  strcpy(str, first);
+  str[strlen(str)] = ' ';
 
-  str = strcat(first, second)
+  str = strcat(str, second);
 }
 
-int main(int argc, char argv**) {
+int main(int argc, char **argv) {
+  char str[0x40]= "";
 
-  char *str= "";
   pp(str);
-
   puts(str);
   return 0;
 }
