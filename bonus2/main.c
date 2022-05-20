@@ -40,8 +40,8 @@ int main(int argc, char **argv) {
       language = 0; // Implicit
   }
   char greet_arg[0x13];
-  memcpy(greet_arg, dest, 0x13);
-  greetuser(lang_env);
+  memcpy(greet_arg, dest, 0x13); // Writes onto the stack
+  greetuser(greet_arg); // Implicit param because it's on the stack
 
   return 0;
 }
