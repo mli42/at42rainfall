@@ -1,48 +1,47 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
+int8_t language = 0;
 
-void greetuser(char *str) {
-  int lang = 0; /* {language} */
-  char *hello = NULL;
-  char *str1 = NULL;
+void greetuser(char *argv) {
+  char greeting[0x48] = { 0 };
 
-  if (lang == 1) {
-    hello = "Hyvää päivää ";
+  if (language == 1)
+    strcpy(greeting, "Hyvää päivää ");
+  else if (language == 2)
+    strcpy(greeting, "Goedemiddag! ");
+  else if (language == 0)
+    strcpy(greeting, "Hello ");
 
-  }
-  else if (lang == 2) {
-    hello = "Goedemiddag! ";
-
-  }
-  else if (lang != 0) {
-    hello = "Hello ";
-
-  }
-
-  strcat(str1, hello);
-  puts(str1);
-
+  strcat(greeting, argv);
+  puts(greeting);
 }
 
 int main(int argc, char **argv) {
-  char language = 0;
+  char dest[0x4c] = { 0 }; // 0x9c - 0x50
+  char *lang_env = NULL;
 
   if (argc != 3)
     return 1;
-  strncpy("", argv[1], 0x28);
-  strncpy("", argv[2], 0x20);
+  memset(dest, 0, 0x13);
+  strncpy(dest, argv[1], 0x28);
+  strncpy(&dest[0x28], argv[2], 0x20);
 
-  char *lang = getenv("LANG");
-  if (lang != NULL)
+  lang_env = getenv("LANG");
+  if (lang_env != NULL)
   {
-    if (memcmp(lang, "fi", 2) == 1)
+    if (memcmp(lang_env, "fi", 2) == 0)
       language = 1;
-    if (memcmp(lang, "nl", 2) == 0)
+    else if (memcmp(lang_env, "nl", 2) == 0)
       language = 2;
+    else
+      language = 0; // Implicit
   }
-  greetuser();
+  char greet_arg[0x13];
+  memcpy(greet_arg, dest, 0x13);
+  greetuser(lang_env);
 
   return 0;
 }
