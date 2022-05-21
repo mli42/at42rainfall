@@ -8,7 +8,6 @@ int main(int argc, char **argv, char **envp) {
   char *size;
   FILE *nitems;
   FILE *stream;
-  int32_t var_1ch = -1;
   char *src;
 
   char *service;
