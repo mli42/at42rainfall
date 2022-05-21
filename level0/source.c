@@ -1,4 +1,7 @@
-
+#define _GNU_SOURCE
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 
 int main(int argc, char **argv)
 {
@@ -7,9 +10,7 @@ int main(int argc, char **argv)
   int uid;
   int gid;
 
-
-
-  if atoi(argv[1] != 423)
+  if (atoi(argv[1]) != 423)
     write(1, "No !\n", 5);
   else
   {
